@@ -12,35 +12,35 @@ namespace Parking_Managment___Praktika
     using static Constants;
     internal class Data
     {
-        public List<Book> Books { get; private set; }
+        public List<Parking> Parkings { get; private set; }
 
         private StreamReader reader;
         private StreamWriter writer;
 
         public Data()
         {
-            LoadBooks();
+            LoadParkings();
         }
 
         public void Save()
         {
-            StreamWriter writer = new StreamWriter(filePath);
+            StreamWriter writer = new StreamWriter("D:/G. Zahariev/Parkings.txt");
             using (writer)
             {
-                string jsonData = JsonSerializer.Serialize(Books);
+                string jsonData = JsonSerializer.Serialize(Parkings);
                 writer.Write(jsonData);
             }
         }
 
-        public void LoadBooks()
+        public void LoadParkings()
         {
-            reader = new StreamReader(filePath);
+            reader = new StreamReader("D:/G. Zahariev/Parkings.txt");
             using (reader)
             {
                 string jsonData = reader.ReadToEnd();
-                Books = JsonSerializer.Deserialize<List<Book>>(jsonData)!;
+                Parkings = JsonSerializer.Deserialize<List<Parking>>(jsonData)!;
             }
-            Books ??= new List<Book>();
+            Parkings ??= new List<Parking>();
         }
     }
 }
