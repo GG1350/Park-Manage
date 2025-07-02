@@ -10,21 +10,20 @@ namespace Parking_Managment___Praktika
 {
     using System.Text.Json;
     using static Constants;
-    internal class Data
+    public class Data
     {
         public List<Parking> Parkings { get; private set; }
-
         private StreamReader reader;
         private StreamWriter writer;
 
         public Data()
         {
-            LoadParkings();
+            LoadBooks();
         }
 
         public void Save()
         {
-            StreamWriter writer = new StreamWriter("D:/G. Zahariev/Parkings.txt");
+            StreamWriter writer = new StreamWriter(filePath);
             using (writer)
             {
                 string jsonData = JsonSerializer.Serialize(Parkings);
@@ -32,15 +31,18 @@ namespace Parking_Managment___Praktika
             }
         }
 
-        public void LoadParkings()
+        public void LoadBooks()
         {
-            reader = new StreamReader("D:/G. Zahariev/Parkings.txt");
+            Parkings = new List<Parking>();
+            reader = new StreamReader(filePath);
             using (reader)
             {
                 string jsonData = reader.ReadToEnd();
-                Parkings = JsonSerializer.Deserialize<List<Parking>>(jsonData)!;
+                if (!string.IsNullOrEmpty(jsonData))
+                {
+                    Parkings = JsonSerializer.Deserialize<List<Parking>>(jsonData)!;
+                }
             }
-            Parkings ??= new List<Parking>();
         }
     }
 }

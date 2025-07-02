@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Parking_Managment___Praktika
 {
-    internal class Parking
+    public class Parking
     {
         public int ParkingID { get; set; }
 
