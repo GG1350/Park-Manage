@@ -5,6 +5,7 @@ namespace Parking_Managment___Praktika
 {
     internal class Program
     {
+        private static Data data = new Data();
         static void Main(string[] args)
         {
             SetIOEncoding();
@@ -12,17 +13,27 @@ namespace Parking_Managment___Praktika
             DisplayMenu();
 
             string choice;
+            bool success=true;
+            string message = "";
             while ((choice = Console.ReadLine()) != "x")
             {
                 switch(choice)
                 {
                     case "1"://add parking
-                        Parking newParking = AddNewParkingUI();
-                        Data.Parkings.Add(newParking);
-                        Data.Save();
-                        message = "Успешно добавена книга.";
-                        success = true;
-
+                        try
+                        {
+                            Parking newParking = AddNewParkingUI();
+                            data.Parkings.Add(newParking);
+                            data.Save();
+                            message = "Успешно добавена книга.";
+                            success = true;
+                        }
+                        catch(InvalidDataException e)
+                        {
+                            message = e.Message;
+                            success = false;
+                        }
+                        BackToMenu(message, success);
                         break;
                     case "2"://add new vehicle
 
@@ -130,6 +141,17 @@ namespace Parking_Managment___Praktika
         {
             Console.InputEncoding = Encoding.Unicode;
             Console.OutputEncoding = Encoding.Unicode;
+        }
+        private static void BackToMenu(string message, bool success = true)
+        {
+            Console.ForegroundColor = success ? ConsoleColor.Green : ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine();
+            Console.Write("Натиснете ENTER към меню ");
+            Console.ReadLine();
+            DisplayMenu();
         }
 
     }
