@@ -15,26 +15,32 @@ namespace Parking_Managment___Praktika
             {
                 switch(choice)
                 {
-                    case "1":
+                    case "1"://add parking
 
+                        
                         break;
-                    case "2":
+                    case "2"://add new vehicle
 
+                        
                         break;
-                    case "3":
+                    case "3"://remove vehicle
 
+                        
                         break;
-                    case "4":
+                    case "4"://check available park spaces
 
+                        
                         break;
-                    case "5":
-
+                    case "5"://report for all parkings
+                        
                         break;
-                    case "6":
+                    case "6"://check specified parking
 
+                        
                         break;
-                    case "7":
+                    case "7"://check for parkings with same loc
 
+                        
                         break;
                     default:
                         break;
@@ -52,7 +58,7 @@ namespace Parking_Managment___Praktika
             Console.WriteLine("|  [3] ▶ Премахване на превозно средство       |");
             Console.WriteLine("|  [4] ▶ Спрaвка за наличните паркоместа       |");
             Console.WriteLine("|  [5] ▶ Справка за всички паркинги            |");
-            Console.WriteLine("|  [6] ▶ Справка за посочен паринг             |");
+            Console.WriteLine("|  [6] ▶ Справка за посочен паркинг             |");
             Console.WriteLine("|  [7] ▶ Проверка за паркинги с еднаква локация|");
             Console.WriteLine("|  [x] ▶ Изход                                 |");
             Console.WriteLine("|                                              |");
