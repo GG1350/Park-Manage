@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Parking_Managment___Praktika
 {
@@ -16,8 +17,12 @@ namespace Parking_Managment___Praktika
                 switch(choice)
                 {
                     case "1"://add parking
+                        Parking newParking = AddNewParkingUI();
+                        Data.Parkings.Add(newParking);
+                        Data.Save();
+                        message = "Успешно добавена книга.";
+                        success = true;
 
-                        
                         break;
                     case "2"://add new vehicle
 
@@ -67,9 +72,34 @@ namespace Parking_Managment___Praktika
             Console.Write("> Изберете опция: ");
             
         }
-        private static void AddNewParkingUI()//Adds new parking with data specified by the user
+        private static Parking AddNewParkingUI()//Adds new parking with data specified by the user
         {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("=====[ Добави паркинг ]=====");
+            Console.ResetColor();
+            Console.WriteLine();
 
+            Console.Write("Въведи локация: ");
+            string loc = Console.ReadLine();
+
+            Console.Write("Въведи брой места: ");
+            int totspaces;
+            if (!int.TryParse(Console.ReadLine(), out totspaces))
+            {
+                throw new InvalidDataException("Въвели сте невалидни данни за паркинга.");
+            }
+
+            try
+            {
+                Parking newParking = new Parking(loc, totspaces);
+                return newParking;
+            }
+            
+            catch (InvalidDataException e)
+            {
+                throw new InvalidDataException(e.Message);
+            }
         }
         private static void RegisterVehicleInParkingUI()//registers a new Vehicle with a plate number specified by the user
         {
