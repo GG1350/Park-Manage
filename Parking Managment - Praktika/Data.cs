@@ -18,7 +18,7 @@ namespace Parking_Managment___Praktika
 
         public Data()
         {
-            LoadBooks();
+            LoadParkings();
         }
 
         public void Save()
@@ -31,18 +31,26 @@ namespace Parking_Managment___Praktika
             }
         }
 
-        public void LoadBooks()
+        public void LoadParkings()
         {
             Parkings = new List<Parking>();
-            reader = new StreamReader(filePath);
-            using (reader)
+            try
             {
-                string jsonData = reader.ReadToEnd();
-                if (!string.IsNullOrEmpty(jsonData))
+                reader = new StreamReader(filePath);
+                using (reader)
                 {
-                    Parkings = JsonSerializer.Deserialize<List<Parking>>(jsonData)!;
+                    string jsonData = reader.ReadToEnd();
+                    if (!string.IsNullOrEmpty(jsonData))
+                    {
+                        Parkings = JsonSerializer.Deserialize<List<Parking>>(jsonData)!;
+                    }
                 }
             }
+            catch (FileNotFoundException)
+            {
+                Parkings=new List<Parking>();
+            }
+
         }
     }
 }
