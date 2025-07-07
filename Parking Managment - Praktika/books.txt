@@ -1,0 +1,1 @@
+[{"ParkingID":"b44f31d2-7a82-4b09-a0e4-accce87718fa","Location":"Mall","TotalSpaces":200}]

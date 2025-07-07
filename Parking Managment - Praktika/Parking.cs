@@ -12,7 +12,7 @@ namespace Parking_Managment___Praktika
         private string loc;
         private int totalSpaces;
         public int AvailableSpaces;
-        public string Vehicles;
+        public List<string>Vehicles;
         
         public string Location
         {
@@ -45,7 +45,8 @@ namespace Parking_Managment___Praktika
             Location = loc;
             TotalSpaces = totalSpaces;
             AvailableSpaces = totalSpaces;
-            Vehicles = "";
+            Vehicles = new List<string>();
         }
+
     }
 }

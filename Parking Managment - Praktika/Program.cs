@@ -25,7 +25,7 @@ namespace Parking_Managment___Praktika
                             Parking newParking = AddNewParkingUI();
                             data.Parkings.Add(newParking);
                             data.Save();
-                            message = "Успешно добавена книга.";
+                            message = "Успешно добавен паркинг.";
                             success = true;
                         }
                         catch(InvalidDataException e)
@@ -36,8 +36,17 @@ namespace Parking_Managment___Praktika
                         BackToMenu(message, success);
                         break;
                     case "2"://add new vehicle
-
-                        
+                        success = RegisterVehicleInParkingUI(data.GetAvailableParkings());
+                        if (success)
+                        {
+                            data.Save(); message = "Автомобилът бе приет успешно.";
+                            message = "Автомобилът бе приет успешно.";
+                        }
+                        else
+                        {
+                            message = "Възникна грешка при приемането на автомобилът.";
+                        }
+                        BackToMenu(message, success);
                         break;
                     case "3"://remove vehicle
 
@@ -74,7 +83,7 @@ namespace Parking_Managment___Praktika
             Console.WriteLine("|  [3] ▶ Премахване на превозно средство       |");
             Console.WriteLine("|  [4] ▶ Спрaвка за наличните паркоместа       |");
             Console.WriteLine("|  [5] ▶ Справка за всички паркинги            |");
-            Console.WriteLine("|  [6] ▶ Справка за посочен паркинг             |");
+            Console.WriteLine("|  [6] ▶ Справка за посочен паркинг            |");
             Console.WriteLine("|  [7] ▶ Проверка за паркинги с еднаква локация|");
             Console.WriteLine("|  [x] ▶ Изход                                 |");
             Console.WriteLine("|                                              |");
@@ -112,9 +121,51 @@ namespace Parking_Managment___Praktika
                 throw new InvalidDataException(e.Message);
             }
         }
-        private static void RegisterVehicleInParkingUI()//registers a new Vehicle with a plate number specified by the user
+        private static bool RegisterVehicleInParkingUI(List<Parking>availableParkings)//registers a new Vehicle with a plate number specified by the user
         {
+            bool success = true;
+            Console.Clear();
 
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("==========[ Регистриране на превозно средство ]==========");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.WriteLine("Списък на всички налични паркинги");
+            Console.WriteLine();
+            int parkID = 0;
+            if (availableParkings.Count > 0)
+            {
+                foreach (var park in availableParkings)
+                {
+                    Console.WriteLine($"{++parkID:d2}.{park}");
+                }
+                Console.WriteLine();
+
+                Console.Write("Въведете номера на паркинга, в който искате да регистрирате превозното средство: ");
+                int SelectedParkID = int.Parse(Console.ReadLine()!) - 1;
+
+                if (SelectedParkID < availableParkings.Count)
+                {
+                    Console.Write("Регистрационен номер на превозното средство: ");
+                    string plateNumber = Console.ReadLine()!;
+
+                    Parking SelectedParking = availableParkings[SelectedParkID];
+                    SelectedParking.AvailableSpaces++;
+                    SelectedParking.Vehicles.Add(plateNumber);
+                }
+                else
+                {
+                    success = false;
+                    Console.WriteLine("[ Грешен номер на превозно средство. ]");
+                }
+            }
+            else
+            {
+                success = false;
+                Console.WriteLine("[ Няма налични свободни места. ]");
+            }
+
+            return success;
         }
         private static void RemoveVehicleFromParkingUI()//removes a vehicle with plate number specified by the user
         {

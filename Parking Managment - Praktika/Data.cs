@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualBasic;
+using Parking_Managment___Praktika;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Parking_Managment___Praktika
     public class Data
     {
         public List<Parking> Parkings { get; private set; }
+        public List<Parking> park = new List<Parking>();
         private StreamReader reader;
         private StreamWriter writer;
 
@@ -48,9 +50,21 @@ namespace Parking_Managment___Praktika
             }
             catch (FileNotFoundException)
             {
-                Parkings=new List<Parking>();
+                Parkings = new List<Parking>();
             }
 
         }
+        public List<Parking> GetAvailableParkings()
+        {
+            foreach (var p in Parkings)
+            {
+                if (p.AvailableSpaces != 0)
+                {
+                    park.Add(p);
+                }
+            }
+            return park;
+        }
     }
 }
+
