@@ -1,0 +1,1 @@
+[{"ParkingID":"1","TotalSpaces":500,"AvailableSpaces":499,"Vehicles":["\u0421\u04121650\u0410\u041A"],"Location":"razgrad"},{"ParkingID":"2","TotalSpaces":300,"AvailableSpaces":300,"Vehicles":[],"Location":"razgrad"}]

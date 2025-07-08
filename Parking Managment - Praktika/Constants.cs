@@ -8,6 +8,6 @@ namespace Parking_Managment___Praktika
 {
     public static class Constants
     {
-        public const string filePath = "../../../books.txt";
+        public const string filePath = "../../../parkings.txt";
     }
 }

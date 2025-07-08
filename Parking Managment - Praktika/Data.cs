@@ -13,6 +13,8 @@ namespace Parking_Managment___Praktika
     using static Constants;
     public class Data
     {
+        private int lastUsedId = 1;
+
         public List<Parking> Parkings { get; private set; }
         public List<Parking> park = new List<Parking>();
         private StreamReader reader;
@@ -44,6 +46,7 @@ namespace Parking_Managment___Praktika
                     string jsonData = reader.ReadToEnd();
                     if (!string.IsNullOrEmpty(jsonData))
                     {
+
                         Parkings = JsonSerializer.Deserialize<List<Parking>>(jsonData)!;
                     }
                 }
@@ -65,6 +68,20 @@ namespace Parking_Managment___Praktika
             }
             return park;
         }
+        public bool RemoveParking(string parkingID)
+        {
+            Parking parkingToRemove = Parkings.FirstOrDefault(p => p.ParkingID == parkingID);
+
+            if (parkingToRemove != null)
+            {
+                Parkings.Remove(parkingToRemove);
+                Save();
+                return true; // success
+            }
+
+            return false; // not found
+        }
     }
+        
 }
 

@@ -8,45 +8,33 @@ namespace Parking_Managment___Praktika
 {
     public class Parking
     {
-        public string ParkingID {  get; set; }
+        public string ParkingID { get; set; }
         private string loc;
-        private int totalSpaces;
-        public int AvailableSpaces;
-        public List<string>Vehicles;
-        
+        public int TotalSpaces { get; set; }
+        public int AvailableSpaces { get; set; }
+        public List<string> Vehicles { get; set; }
+
         public string Location
         {
             get { return loc; }
             set
             {
                 if (string.IsNullOrEmpty(value.Trim()))
-                {
                     throw new InvalidDataException("Невалидна локация.");
-                }
                 loc = value;
             }
         }
-        public int TotalSpaces
+        public Parking()
         {
-            get { return totalSpaces; }
-            set
-            {
-                if (value < 10)
-                {
-                    throw new InvalidDataException("Паркингът трябва да има поне 10 места");
-                }
-                totalSpaces = value;
-            }
+            Vehicles = new List<string>();
         }
-
-        public Parking(string loc,int totalSpaces)
+        public Parking(string location, int totalSpaces)
         {
-            ParkingID=Guid.NewGuid().ToString();
-            Location = loc;
+            ParkingID = Guid.NewGuid().ToString();
+            Location = location;
             TotalSpaces = totalSpaces;
             AvailableSpaces = totalSpaces;
             Vehicles = new List<string>();
         }
-
     }
 }
