@@ -162,17 +162,58 @@ namespace Parking_Managment___Praktika
 
         private static void ReportForAllParkingsUI()//outputs a report for all parkings
         {
-            
+            foreach (var p in data.Parkings)
+            {
+                Console.WriteLine("-------------------------------------------------");
+                Console.WriteLine($"ID: {p.ParkingID}");
+                Console.WriteLine($"Локация: {p.Location}");
+                Console.WriteLine($"Общо места: {p.TotalSpaces}");
+                Console.WriteLine($"Свободни места: {p.AvailableSpaces}");
+                Console.WriteLine("Регистрирани номера: " + string.Join(", ", p.Vehicles));
+            }
+            BackToMenu("Всички паркинги са показани.");
         }
 
         private static void CheckSpecificParkingUI()//outputs information for a specific parking by ID
         {
-            
+            Console.Write("Въведете ID на паркинг: ");
+            string id = Console.ReadLine();
+
+            var parking = data.Parkings.FirstOrDefault(p => p.ParkingID == id);
+
+            if (parking != null)
+            {
+                Console.WriteLine($"Локация: {parking.Location}");
+                Console.WriteLine($"Общо места: {parking.TotalSpaces}");
+                Console.WriteLine($"Свободни: {parking.AvailableSpaces}");
+                Console.WriteLine("Регистрирани коли: " + string.Join(", ", parking.Vehicles));
+                BackToMenu("Справка за конкретен паркинг завършена.");
+            }
+            else
+            {
+                BackToMenu("Невалиден ID на паркинг.", false);
+            }
         }
 
         private static void CheckForParkingsWithSameLocUI()//outputs all parkings with the same location
         {
-            
+            Console.Write("Въведете локация: ");
+            string loc = Console.ReadLine();
+
+            var sameLocP = data.Parkings.Where(p => p.Location.Equals(loc, StringComparison.OrdinalIgnoreCase)).ToList();
+
+            if (sameLocP.Count == 0)
+            {
+                BackToMenu("Няма паркинги на тази локация.", false);
+                return;
+            }
+
+            foreach (var p in sameLocP)
+            {
+                Console.WriteLine($"ID: {p.ParkingID} | Свободни: {p.AvailableSpaces}");
+            }
+
+            BackToMenu("Намерени паркинги на същата локация.");
         }
 
 
@@ -193,7 +234,15 @@ namespace Parking_Managment___Praktika
         }
         private static void RemoveParkingUI()//removes a parking by ID
         {
-            
+            Console.Write("Въведете ID на паркинга за изтриване: ");
+            string id = Console.ReadLine();
+
+            bool removed = data.RemoveParking(id);
+
+            if (removed)
+                BackToMenu("Паркингът беше успешно изтрит.");
+            else
+                BackToMenu("Няма паркинг с това ID.", false);
         }
     }
 }
