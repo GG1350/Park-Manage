@@ -76,6 +76,7 @@ namespace Parking_Managment___Praktika
             {
                 Parkings.Remove(parkingToRemove);
                 Save();
+
                 return true; // success
             }
 

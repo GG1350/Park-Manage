@@ -1,1 +1,1 @@
-[{"ParkingID":"2","TotalSpaces":300,"AvailableSpaces":300,"Vehicles":[],"Location":"razgrad"},{"ParkingID":"4","TotalSpaces":50,"AvailableSpaces":50,"Vehicles":[],"Location":"Downtown"},{"ParkingID":"4","TotalSpaces":6000,"AvailableSpaces":6000,"Vehicles":[],"Location":"PLOVDIV"},{"ParkingID":"4","TotalSpaces":5,"AvailableSpaces":5,"Vehicles":[],"Location":"akfwoyui"}]
+[]
